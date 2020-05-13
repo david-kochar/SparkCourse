@@ -1,6 +1,6 @@
 from pyspark import SparkConf, SparkContext
 
-conf = SparkConf().setMaster("local").setAppName("MinTemperatures")
+conf = SparkConf().setMaster("local").setAppName("MinMaxTemperatures")
 sc = SparkContext(conf = conf)
 
 def parseLine(line):
@@ -8,7 +8,7 @@ def parseLine(line):
     stationID = fields[0]
     date      = str(fields[1])
     entryType = fields[2]
-    temperature = float(fields[3]) * 0.1 * (9.0 / 5.0) + 32.0
+    temperature = float(fields[3]) * 0.1 * (9/5) + 32
     return (stationID, date, entryType, temperature)
 
 lines = sc.textFile("file:///SparkCourse/1800.csv")
